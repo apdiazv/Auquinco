@@ -11,25 +11,16 @@
 ////////////////////////////////////////////////////////////////
 
 // Overridden default constructor
-QCDate::QCDate()
+QCDate::QCDate():_serialDate(0), _day(0), _month(1), _year(1900), _dayOfWeek(6)
 {
-	_serialDate = 0;
-	_day = 0;
-	_month = 1;
-	_year = 1900;
-	_dayOfWeek = 6;
 
 }
 
 // Overridden copy constructor
 // Copies entries of other Date into it
-QCDate::QCDate(const QCDate& otherDate)
+QCDate::QCDate(const QCDate& otherDate):_serialDate(otherDate._serialDate), _day(otherDate._day), _month(otherDate._month), _year(otherDate._year), _dayOfWeek(otherDate._dayOfWeek)
 {
-	_serialDate = otherDate._serialDate;
-	_day = otherDate._day;
-	_month = otherDate._month;
-	_year = otherDate._year;
-	_dayOfWeek = otherDate._dayOfWeek;
+
 }
 
 // Constructor for date of a given excel serial number
@@ -86,13 +77,13 @@ int QCDate::year() const
 }
 
 // Method to get the day of week of a date
-int QCDate::dayOfWeek()
+int QCDate::dayOfWeek() const
 {
 	return _dayOfWeek;
 }
 
 // Method to add or subtract days to a date to calculate a past or future date
-QCDate QCDate::addDays(int days)
+QCDate QCDate::addDays(int days) const
 {
 	int newSerialDate = _serialDate + days;
 	assert(newSerialDate > 0);
@@ -101,7 +92,7 @@ QCDate QCDate::addDays(int days)
 }
 
 // Method to add or subtract month from a given date
-QCDate QCDate::addMonths(int months)
+QCDate QCDate::addMonths(int months) const
 {
 	std::vector<int> daysMonths(12);
 	std::vector<int>::iterator it;
@@ -109,6 +100,7 @@ QCDate QCDate::addMonths(int months)
 	int newMonth = _month;
 	int newYear = _year;
 	bool eom = false;
+	int flag = 1;
 
 	int aux[] = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
 	daysMonths.assign(aux, aux + 12);
@@ -121,13 +113,13 @@ QCDate QCDate::addMonths(int months)
 	}
 
 	months = months + newMonth;
-	newMonth = months - (int)( 12 * ( months / 12));
+	newMonth = months - (int)( 12 * std::floor( months / 12.0));
 	if (newMonth == 0)
 	{
 		newMonth = 12;
 	}
 
-	newYear = newYear + (int)(( months - 1) / 12 );
+	newYear = newYear + (int)(std::floor(( months - 1) / 12.0 ));
     if (newYear < 1900)
 	{
 		newYear = 1900;
@@ -309,4 +301,11 @@ QCDate getLag(const QCDate& date1, int nStep)
 		}
 		return date;
     }
+}
+
+QCDate addMonthsUFCalendar(const QCDate& date1, int months)
+{
+	//QCDate date(date1.addMonths(months));
+	QCDate newDate(9, date1.addMonths(months).month(), date1.addMonths(months).year());
+	return newDate;
 }
