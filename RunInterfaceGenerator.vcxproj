@@ -109,12 +109,15 @@
     <None Include="RunInterfaceGenerator.nmake" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="source\Functions.h" />
+    <ClInclude Include="source\qcBasis.h" />
     <ClInclude Include="source\cppinterface.h" />
     <ClInclude Include="source\ExcelDates.h" />
     <ClInclude Include="source\QCDate.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="source\ExcelDates.cpp" />
+    <ClCompile Include="source\Functions.cpp" />
     <ClCompile Include="source\QCDate.cpp" />
     <ClCompile Include="source\source.cpp" />
     <ClCompile Include="source\xlwWrapper.cpp" />

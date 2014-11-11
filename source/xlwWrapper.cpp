@@ -403,6 +403,360 @@ EXCEL_END
 
 //////////////////////////
 
+namespace
+{
+XLRegistration::Arg
+QCLagArgs[]=
+{
+{ "date"," Fecha ","B"},
+{ "nStep"," Numero de dias habiles ","B"}
+};
+  XLRegistration::XLFunctionRegistrationHelper
+registerQCLag("xlQCLag",
+"QCLag",
+" Quita n dias habiles a una fecha dada. La opcion 0 quita un dia habil si fecha ingresada es inhabil ",
+LibraryName,
+QCLagArgs,
+2
+,false
+,false
+,""
+,""
+,false
+,false
+,false
+);
+}
+
+
+
+extern "C"
+{
+LPXLFOPER EXCEL_EXPORT
+xlQCLag(
+double datea,
+double nStepa)
+{
+EXCEL_BEGIN;
+
+	if (XlfExcel::Instance().IsCalledByFuncWiz())
+		return XlfOper(true);
+
+int date(
+	static_cast<int>(datea));
+
+int nStep(
+	static_cast<int>(nStepa));
+
+int result(
+	QCLag(
+		date,
+		nStep)
+	);
+return XlfOper(result);
+EXCEL_END
+}
+}
+
+
+
+//////////////////////////
+
+namespace
+{
+XLRegistration::Arg
+QCYearFractionArgs[]=
+{
+{ "startDate"," Fecha inicio ","B"},
+{ "endDate"," Fecha fin ","B"},
+{ "basis"," base: Act/365, act/360 o 30/360 (por defecto act/365) ","XLF_OPER"}
+};
+  XLRegistration::XLFunctionRegistrationHelper
+registerQCYearFraction("xlQCYearFraction",
+"QCYearFraction",
+" Calcula tiempo en a os entre dos fechas utilizando base especificada ",
+LibraryName,
+QCYearFractionArgs,
+3
+,false
+,false
+,""
+,""
+,false
+,false
+,false
+);
+}
+
+
+
+extern "C"
+{
+LPXLFOPER EXCEL_EXPORT
+xlQCYearFraction(
+double startDatea,
+double endDatea,
+LPXLFOPER basisa)
+{
+EXCEL_BEGIN;
+
+	if (XlfExcel::Instance().IsCalledByFuncWiz())
+		return XlfOper(true);
+
+int startDate(
+	static_cast<int>(startDatea));
+
+int endDate(
+	static_cast<int>(endDatea));
+
+XlfOper basisb(
+	(basisa));
+std::string basis(
+	basisb.AsString("basis"));
+
+double result(
+	QCYearFraction(
+		startDate,
+		endDate,
+		basis)
+	);
+return XlfOper(result);
+EXCEL_END
+}
+}
+
+
+
+//////////////////////////
+
+namespace
+{
+XLRegistration::Arg
+QCYearFracActualActualArgs[]=
+{
+{ "startDate"," Fecha inicio ","B"},
+{ "endDate"," Fecha fin ","B"}
+};
+  XLRegistration::XLFunctionRegistrationHelper
+registerQCYearFracActualActual("xlQCYearFracActualActual",
+"QCYearFracActualActual",
+" Calcula tiempo en a os entre dos fechas utilizando base act/act ",
+LibraryName,
+QCYearFracActualActualArgs,
+2
+,false
+,false
+,""
+,""
+,false
+,false
+,false
+);
+}
+
+
+
+extern "C"
+{
+LPXLFOPER EXCEL_EXPORT
+xlQCYearFracActualActual(
+double startDatea,
+double endDatea)
+{
+EXCEL_BEGIN;
+
+	if (XlfExcel::Instance().IsCalledByFuncWiz())
+		return XlfOper(true);
+
+int startDate(
+	static_cast<int>(startDatea));
+
+int endDate(
+	static_cast<int>(endDatea));
+
+int result(
+	QCYearFracActualActual(
+		startDate,
+		endDate)
+	);
+return XlfOper(result);
+EXCEL_END
+}
+}
+
+
+
+//////////////////////////
+
+namespace
+{
+XLRegistration::Arg
+QCRedondeoParcialArgs[]=
+{
+{ "number"," numero ","B"}
+};
+  XLRegistration::XLFunctionRegistrationHelper
+registerQCRedondeoParcial("xlQCRedondeoParcial",
+"QCRedondeoParcial",
+" Si parte decimal de n es menor que 0.25 devuelve n, si es mayor o igual a 0.25 y menor que 0.75 devuelve (n + 0.5) y si es mayor que 0.75 devuelve (n+1) ",
+LibraryName,
+QCRedondeoParcialArgs,
+1
+,false
+,false
+,""
+,""
+,false
+,false
+,false
+);
+}
+
+
+
+extern "C"
+{
+LPXLFOPER EXCEL_EXPORT
+xlQCRedondeoParcial(
+double number)
+{
+EXCEL_BEGIN;
+
+	if (XlfExcel::Instance().IsCalledByFuncWiz())
+		return XlfOper(true);
+
+
+double result(
+	QCRedondeoParcial(
+		number)
+	);
+return XlfOper(result);
+EXCEL_END
+}
+}
+
+
+
+//////////////////////////
+
+namespace
+{
+XLRegistration::Arg
+QCAddMonthsArgs[]=
+{
+{ "startDate"," Fecha inicial ","B"},
+{ "months"," Numero de meses a agregar o quitar ","B"}
+};
+  XLRegistration::XLFunctionRegistrationHelper
+registerQCAddMonths("xlQCAddMonths",
+"QCAddMonths",
+" Agrega o quita meses a una fecha dada ",
+LibraryName,
+QCAddMonthsArgs,
+2
+,false
+,false
+,""
+,""
+,false
+,false
+,false
+);
+}
+
+
+
+extern "C"
+{
+LPXLFOPER EXCEL_EXPORT
+xlQCAddMonths(
+double startDatea,
+double monthsa)
+{
+EXCEL_BEGIN;
+
+	if (XlfExcel::Instance().IsCalledByFuncWiz())
+		return XlfOper(true);
+
+int startDate(
+	static_cast<int>(startDatea));
+
+int months(
+	static_cast<int>(monthsa));
+
+int result(
+	QCAddMonths(
+		startDate,
+		months)
+	);
+return XlfOper(result);
+EXCEL_END
+}
+}
+
+
+
+//////////////////////////
+
+namespace
+{
+XLRegistration::Arg
+QCAddMonthsCArgs[]=
+{
+{ "startDate"," Fecha inicial ","B"},
+{ "months"," Numero de meses a agregar o quitar ","B"}
+};
+  XLRegistration::XLFunctionRegistrationHelper
+registerQCAddMonthsC("xlQCAddMonthsC",
+"QCAddMonthsC",
+" Agrega o quita meses a una fecha dada. Fecha final es dia 9 del mes ",
+LibraryName,
+QCAddMonthsCArgs,
+2
+,false
+,false
+,""
+,""
+,false
+,false
+,false
+);
+}
+
+
+
+extern "C"
+{
+LPXLFOPER EXCEL_EXPORT
+xlQCAddMonthsC(
+double startDatea,
+double monthsa)
+{
+EXCEL_BEGIN;
+
+	if (XlfExcel::Instance().IsCalledByFuncWiz())
+		return XlfOper(true);
+
+int startDate(
+	static_cast<int>(startDatea));
+
+int months(
+	static_cast<int>(monthsa));
+
+int result(
+	QCAddMonthsC(
+		startDate,
+		months)
+	);
+return XlfOper(result);
+EXCEL_END
+}
+}
+
+
+
+//////////////////////////
+
 //////////////////////////
 // Methods that will get registered to execute in AutoOpen
 //////////////////////////
